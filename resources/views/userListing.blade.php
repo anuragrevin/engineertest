@@ -18,7 +18,11 @@
                 <td>{{$user->id}}</td>
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
-                <td>{{$user->photo}}</td>
+                <td>
+                    @if($user->photo != '')
+                        <img class="img-thumbnail" src="/uploads/{{$user->photo}}" />
+                    @endif
+                </td>
                 <td>{{$user->created_at}}</td>
                 <td>
                     <a href="/user/edit/{{$user->id}}" class="btn btn-success">Edit</a>

@@ -9,15 +9,20 @@
             {{ csrf_field() }}
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" name="name" class="form-control" placeholder="Enter your name" value="{{ isset($user) ? $user->name : '' }}">
+                <input type="text" name="name" class="form-control" placeholder="Enter your name" value="{{ isset($user) ? $user->name : '' }}" required>
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="text" name="email" class="form-control" placeholder="Enter your email" value="{{ isset($user) ? $user->email : '' }}">
+                <input type="text" name="email" class="form-control" placeholder="Enter your email" value="{{ isset($user) ? $user->email : '' }}" required>
             </div>
+            @if(isset($user) && $user->photo)
+            <div class="form-group">
+                <img class="img-thumbnail" src="/uploads/{{$user->photo}}" />
+            </div>
+            @endif
             <div class="form-group">
                 <label for="photo">Photo</label>
-                <input type="text" name="photo" class="form-control" placeholder="Upload your photo" value="{{ isset( $user) ? $user->photo : '' }}">
+                <input type="file" name="photo" class="form-control" placeholder="Upload your photo" value="{{ isset( $user) ? $user->photo : '' }}">
             </div>
             <div class="text-center form-group">
                 <button type="submit" class="btn btn-primary">{{ isset($user) ? 'Update User' : 'Add User' }}</button>

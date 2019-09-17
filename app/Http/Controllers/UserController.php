@@ -18,10 +18,17 @@ class UserController extends Controller
     }
 
     public function createUser(Request $request) {
+        
         $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->photo = $request->photo;
+
+        if($request->file('photo') != '') {
+            $image = $request->file('photo');
+            $image->move(public_path().'/uploads', $image->getClientOriginalName());
+            $user->photo = $image->getClientOriginalName();
+        }
+
         $user->save();
 
         return redirect('/');
@@ -34,10 +41,17 @@ class UserController extends Controller
     }
 
     public function updateUser($id, Request $request) {
+        
         $user = User::find($id);
         $user->name = $request->name; 
         $user->email = $request->email; 
-        $user->photo = $request->photo;
+
+        if($request->file('photo') != '') {
+            $image = $request->file('photo');
+            $image->move(public_path().'/uploads', $image->getClientOriginalName());
+            $user->photo = $image->getClientOriginalName();
+        }
+
         $user->save();
         
         return redirect('/');
